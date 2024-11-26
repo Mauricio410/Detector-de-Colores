@@ -1,30 +1,24 @@
-import cv2
 import numpy as np
+import cv2
 
-archivoVid = "1.avi"
-archivoImg = "1.jpg"
-archivoCam = 0
-
-cap = cv2.VideoCapture(archivoVid)
+archivoVid = "videos/video_sombraOK.avi"
+archivoCam = "fotos/imagen1.jpg"
 
 def nada (x):
     pass
 
-    # HSV = Tonalidad/Hue, Pureza/Saturation, Luminosidad/Value
-
 cv2.namedWindow('Parametros')
 
 cv2.createTrackbar('Tonalidad Minimo', 'Parametros', 0, 179, nada)
-cv2.createTrackbar('Tonalidad Maximo', 'Parametros', 0, 179, nada) # 179 es el valor maximo de Tonalidad/Hue
-
+cv2.createTrackbar('Tonalidad Maximo', 'Parametros', 0, 179, nada)
 cv2.createTrackbar('Pureza Minimo', 'Parametros', 0, 255, nada)
-cv2.createTrackbar('Pureza Maximo', 'Parametros', 0, 255, nada) # 255 es el valor maximo de pureza/Saturation
-
+cv2.createTrackbar('Pureza Maximo', 'Parametros', 0, 255, nada)
 cv2.createTrackbar('Luminosidad Minimo', 'Parametros', 0, 255, nada)
-cv2.createTrackbar('Luminosidad Maximo', 'Parametros', 0, 255, nada) # 255 es el valor maximo de luminosidad/Value
+cv2.createTrackbar('Luminosidad Maximo', 'Parametros', 0, 255, nada)
+cv2.createTrackbar('Kernel X', 'Parametros', 1, 30, nada)
+cv2.createTrackbar('Kernel Y', 'Parametros', 1, 30, nada)
 
-cv2.createTrackbar('Kernel X', 'Parametros', 1, 30, nada) # Kernel para operaciones morfologicas
-cv2.createTrackbar('Kernel Y', 'Parametros', 1, 30, nada) # Kernel para operaciones morfologicas
+cap = cv2.VideoCapture(archivoVid)
 
 paused = False
 
@@ -38,13 +32,10 @@ while (1):
 
         TMin = cv2.getTrackbarPos('Tonalidad Minimo', 'Parametros')
         TMax = cv2.getTrackbarPos('Tonalidad Maximo', 'Parametros')
-
         PMin = cv2.getTrackbarPos('Pureza Minimo', 'Parametros')
         PMax = cv2.getTrackbarPos('Pureza Maximo', 'Parametros')
-
         LMin = cv2.getTrackbarPos('Luminosidad Minimo', 'Parametros')
         LMax = cv2.getTrackbarPos('Luminosidad Maximo', 'Parametros')
-
         kX = cv2.getTrackbarPos('Kernel X', 'Parametros')
         kY = cv2.getTrackbarPos('Kernel Y', 'Parametros')
 

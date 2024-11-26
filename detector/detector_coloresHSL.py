@@ -9,14 +9,21 @@ def nothing(x):
 
 cv2.namedWindow('Parametros')
 
-cv2.createTrackbar('L Min', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('L Max', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('A Min', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('A Max', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('B Min', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('B Max', 'Parametros', 0, 255, nothing)
-cv2.createTrackbar('Kernel X', 'Parametros', 1, 30, nothing)
-cv2.createTrackbar('Kernel Y', 'Parametros', 1, 30, nothing)
+# HSL = Hue, Saturation, Lightness
+
+cv2.namedWindow('Parametros')
+cv2.createTrackbar('H Min', 'Parametros', 0, 179, lambda x: None)
+cv2.createTrackbar('H Max', 'Parametros', 179, 179, lambda x: None)
+
+cv2.createTrackbar('S Min', 'Parametros', 40, 255, lambda x: None)
+cv2.createTrackbar('S Max', 'Parametros', 255, 255, lambda x: None)
+
+cv2.createTrackbar('L Min', 'Parametros', 0, 255, lambda x: None)
+cv2.createTrackbar('L Max', 'Parametros', 160, 255, lambda x: None)
+
+cv2.createTrackbar('Kernel X', 'Parametros', 6, 30, lambda x: None)
+cv2.createTrackbar('Kernel Y', 'Parametros', 6, 30, lambda x: None)
+
 
 cap = cv2.VideoCapture(archivoVid)
 
@@ -28,21 +35,22 @@ while (1):
         if not ret:
             break
 
-        lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+        hls = cv2.cvtColor(frame, cv2.COLOR_BGR2HLS)
 
+        HMin = cv2.getTrackbarPos('H Min', 'Parametros')
+        HMax = cv2.getTrackbarPos('H Max', 'Parametros')
+        SMin = cv2.getTrackbarPos('S Min', 'Parametros')
+        SMax = cv2.getTrackbarPos('S Max', 'Parametros')
         LMin = cv2.getTrackbarPos('L Min', 'Parametros')
         LMax = cv2.getTrackbarPos('L Max', 'Parametros')
-        AMin = cv2.getTrackbarPos('A Min', 'Parametros')
-        AMax = cv2.getTrackbarPos('A Max', 'Parametros')
-        BMin = cv2.getTrackbarPos('B Min', 'Parametros')
-        BMax = cv2.getTrackbarPos('B Max', 'Parametros')
         kX = cv2.getTrackbarPos('Kernel X', 'Parametros')
         kY = cv2.getTrackbarPos('Kernel Y', 'Parametros')
 
-        color_oscuro = np.array([LMin, AMin, BMin])
-        color_claro = np.array([LMax, AMax, BMax])
 
-        mask = cv2.inRange(lab, color_oscuro, color_claro)
+        color_oscuro = np.array([HMin, LMin, SMin])
+        color_claro = np.array([HMax, LMax, SMax])
+
+        mask = cv2.inRange(hls, color_oscuro, color_claro)
 
         kernel = np.ones((kX, kY), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
@@ -54,7 +62,7 @@ while (1):
         cv2.imshow('frame', frame)
         cv2.imshow('mask', mask)
 
-    k = cv2.waitKey(25) & 0xFF
+    k = cv2.waitKey(50) & 0xFF
     if k == 27:  # Tecla 'Esc' para salir
         break
     elif k == ord('p'):  # Tecla 'p' para pausar/reanudar
