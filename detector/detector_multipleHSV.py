@@ -14,8 +14,8 @@ cv2.resizeWindow('Trackbars', 600, 400)  # Ajusta el tamaño de la ventana segú
 cv2.createTrackbar('H Lower Claros', 'Trackbars', 0, 179, nothing)
 cv2.createTrackbar('H Upper Claros', 'Trackbars', 50, 179, nothing)
 cv2.createTrackbar('S Lower Claros', 'Trackbars', 80, 255, nothing)
-cv2.createTrackbar('S Upper Claros', 'Trackbars', 210, 255, nothing)
-cv2.createTrackbar('V Lower Claros', 'Trackbars', 130, 255, nothing)
+cv2.createTrackbar('S Upper Claros', 'Trackbars', 255, 255, nothing)
+cv2.createTrackbar('V Lower Claros', 'Trackbars', 100, 255, nothing)
 cv2.createTrackbar('V Upper Claros', 'Trackbars', 210, 255, nothing)
 
 cv2.createTrackbar('H Lower Oscuros', 'Trackbars', 0, 179, nothing)
