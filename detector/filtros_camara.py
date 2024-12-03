@@ -19,7 +19,7 @@ cv2.createTrackbar('Contrast', 'Trackbars', 100, 255, nothing)
 cv2.createTrackbar('Saturation', 'Trackbars', 75, 255, nothing)
 cv2.createTrackbar('Sharpness', 'Trackbars', 0, 255, nothing)
 cv2.createTrackbar('Gamma', 'Trackbars', 0, 255, nothing)
-cv2.createTrackbar('Hue', 'Trackbars', 0, 255, nothing)
+cv2.createTrackbar('Hue', 'Trackbars', 0, 15000, nothing)
 cv2.createTrackbar('Gain', 'Trackbars', 0, 255, nothing)
 
 # Rango de colores en HSV
